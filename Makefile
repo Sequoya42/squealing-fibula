@@ -45,7 +45,7 @@ INC =			$(addprefix $(INC_PATH),$(INC_NAME))
 
 INCLIBFT = 		$(LIBFT_PATH)inc
 
-SELECT_FLAG = -ltermcap
+SELECT_FLAG =	-ltermcap
 
 LIBFT_FLAG = 	-L$(LIBFT_PATH) -lft
 
@@ -53,7 +53,7 @@ all:			libft $(NAME)
 
 $(NAME):		$(OBJ)
 				@$(CC) $(LIBFT_FLAG) $(SELECT_FLAG) -o $@ $^
-				@echo "Philosophers ready to think !"
+				@echo "Select created"
 
 $(OBJ_PATH)%.o:	$(SRC_PATH)%.c $(INC)
 				@mkdir -p $(OBJ_PATH)
