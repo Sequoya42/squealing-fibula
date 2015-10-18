@@ -1,18 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putchar.c                                       :+:      :+:    :+:   */
+/*   short_func.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rbaum <rbaum@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2014/11/07 12:05:23 by rbaum             #+#    #+#             */
-/*   Updated: 2014/11/09 14:05:45 by rbaum            ###   ########.fr       */
+/*   Created: 2015/10/16 18:20:32 by rbaum             #+#    #+#             */
+/*   Updated: 2015/10/17 19:24:50 by rbaum            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "select.h"
 
-void	ft_putchar(char c)
+t_select			*singleton(void)
 {
-	write(1, &c, 1);
+	static t_select	s;
+
+	return (&s);
+}
+
+int					tputs_putchar(int c)
+{
+	write(FD, &c, 1);
+	return (1);
+}
+
+void				print_key(char buf[3])
+{
+	ft_putstr(ft_itoa(buf[0]));
+	ft_putchar('\t');
+	ft_putstr(ft_itoa(buf[1]));
+	ft_putchar('\t');
+	ft_putstr(ft_itoa(buf[2]));
+	ft_putchar('\n');
+
 }

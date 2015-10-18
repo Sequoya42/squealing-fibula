@@ -39,7 +39,7 @@ SRC_NAME = ft_atoi.c		ft_bzero.c		ft_isalnum.c	ft_isalpha.c	\
 	ft_lstinter.c	ft_lstnew.c		ft_lstmap.c		get_next_line.c \
 	ft_putnbrn.c	ft_putnbrendl.c	ft_strndup.c	ft_clear_tab.c	\
 	ft_nb_tab.c		ft_split_char.c	ft_update_tab.c	ft_error.c		\
-	ft_strdup_tab.c	debug.c
+	ft_strdup_tab.c	debug.c	
 
 OBJ_NAME = $(SRC_NAME:.c=.o)
 
