@@ -22,3 +22,10 @@ keypad_xmit	    		ks	     enter 'keyboard_transmit' mode
 exit_ca_mode		    te	     strings to	end programs using cup
 key_eol				    kE	     clear-to-end-of-line key
 key_eos				    kS	     clear-to-end-of-screen key
+
+
+len / 4 
+if (len < 4)
+{
+	
+}

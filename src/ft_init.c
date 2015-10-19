@@ -6,7 +6,7 @@
 /*   By: rbaum <rbaum@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/10/17 14:47:19 by rbaum             #+#    #+#             */
-/*   Updated: 2015/10/18 22:14:17 by rbaum            ###   ########.fr       */
+/*   Updated: 2015/10/19 19:19:12 by rbaum            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,24 @@ static t_member		*set_n(int i, char **t)
 	n->prev = NULL;
 	n->current = 0;
 	n->selected = 0;
+	n->index = i;
+	n->len = ft_strlen(n->name);
 	return (n);
+}
+
+static void			fill_first(t_select *s, t_member *n)
+{
+		n->current = 1;
+		s->first = n;
+		s->last = n;
+		s->cur = s->first;
+}
+
+static void			fill_others(t_select *s, t_member *n)
+{
+		s->last->next = n;
+		n->prev = s->last;
+		s->last = n;
 }
 
 static void			fill_list(char **t, t_select *s)
@@ -36,39 +53,28 @@ static void			fill_list(char **t, t_select *s)
 	{
 		n = set_n(i, t);
 		if (i == 1)
-		{
-			n->current = 1;
-			s->first = n;
-			s->last = n;
-			s->cur = s->first;
-		}
+			fill_first(s, n);
 		else
-		{
-			s->last->next = n;
-			n->prev = s->last;
-			s->last = n;
-		}
+			fill_others(s, n);
 		i++;
+		if (n->len > s->len_max)
+			s->len_max = n->len;
 	}
-}
-
-static void		make_circular(t_select *s)
-{
 	s->last->next = s->first;
 	s->first->prev = s->last;
+	s->nb_elem = i - 1;
 }
 
-t_select		*ft_init(char **av)
+void			ft_init(char **av, t_select *s)
 {
-	t_select	*s;
-
-	s = SING;
+	s->len_max = 0;
+	s->total_size = 0;
 	fill_list(av, s);
-	make_circular(s);
 	if ((s->fd = open("/dev/tty", O_RDWR)) == -1)
 		ft_exit("Bad file decriptor struct\n");
-	s->sig = 0;
-	return (s);
+	if (modif_term(s->term) == -1)
+		ft_exit("failed modifying\n");
+	get_window_size(s);
 }
 
 

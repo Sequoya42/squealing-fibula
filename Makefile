@@ -29,7 +29,7 @@ INC_PATH =		./inc/
 
 SRC_NAME =		main.c				print_list.c			short_func.c\
 				key_events.c		modif_term.c			ft_init.c\
-				signal.c\
+				signal.c			move.c\
 
 OBJ_NAME =		$(SRC_NAME:.c=.o)
 
