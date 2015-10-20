@@ -6,7 +6,7 @@
 /*   By: rbaum <rbaum@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/10/17 14:49:15 by rbaum             #+#    #+#             */
-/*   Updated: 2015/10/19 19:05:57 by rbaum            ###   ########.fr       */
+/*   Updated: 2015/10/20 19:22:04 by rbaum            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int					modif_term(struct termios *term)
 		ft_exit("Failed tcgetattr!\n");
 	tputs(tgetstr("ti", NULL), 1, tputs_putchar);
 	tputs(tgetstr("vi", NULL), 1, tputs_putchar);
-	term->c_lflag &= ~(ICANON| ECHO);
+	term->c_lflag &= ~(ICANON | ECHO);
 	term->c_cc[VMIN] = 1;
 	term->c_cc[VTIME] = 0;
 	if (tcsetattr(0, TCSADRAIN, term) == -1)

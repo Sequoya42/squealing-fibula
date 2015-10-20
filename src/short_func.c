@@ -6,7 +6,7 @@
 /*   By: rbaum <rbaum@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/10/16 18:20:32 by rbaum             #+#    #+#             */
-/*   Updated: 2015/10/19 18:42:58 by rbaum            ###   ########.fr       */
+/*   Updated: 2015/10/20 19:24:08 by rbaum            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,10 +38,9 @@ void				print_key(char buf[3])
 	ft_putchar('\t');
 	ft_putstr(ft_itoa(buf[2]));
 	ft_putchar('\n');
-
 }
 
-void			get_window_size(t_select *s)
+void				get_window_size(t_select *s)
 {
 	struct winsize	win;
 	int				n;
@@ -50,11 +49,11 @@ void			get_window_size(t_select *s)
 		ft_exit("Error with ioctl\n");
 	s->w = win;
 	n = s->len_max % 4;
-	s->co = (X / (s->len_max + 4 + n));
-	s->co = s->co < 1 ? 1 : s->co;
+	s->co = ((X - 5) / (s->len_max + 4 + n));
+	s->co = s->co <= 1 ? 1 : s->co;
 }
 
-int			print_selected(t_select *s)
+int					print_selected(t_select *s)
 {
 	t_member		*tmp;
 	int				l;
@@ -76,7 +75,7 @@ int			print_selected(t_select *s)
 		{
 			if (l == 1)
 				ft_putchar('\n');
-			break;
+			break ;
 		}
 	}
 	sig_exit(0);

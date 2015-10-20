@@ -6,7 +6,7 @@
 /*   By: rbaum <rbaum@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/03 18:16:30 by rbaum             #+#    #+#             */
-/*   Updated: 2015/10/17 17:09:28 by rbaum            ###   ########.fr       */
+/*   Updated: 2015/10/20 15:20:13 by rbaum            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,20 @@
 
 # define KNRM		"\x1B[0m"
 # define KRED		"\x1B[31m"
+# define KLRED		"\x1B[91m"
 # define KGRN		"\x1B[32m"
+# define KLGRN		"\e[92m"
 # define KYEL		"\x1B[33m"
+# define KLYEL		"\e[93m"
 # define KBLU		"\x1B[34m"
+# define KLBLU		"\e[94m"
 # define KMAG		"\x1B[35m"
 # define KCYN		"\x1B[36m"
+# define KLCYN		"\e[96m"
 # define KWHT		"\x1B[37m"
+
+# define KBOLD		"\033[1m"
+# define KREV		"\033[7m"
 
 typedef struct		s_list
 {

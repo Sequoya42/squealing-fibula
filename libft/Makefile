@@ -6,7 +6,7 @@
 #    By: rbaum <rbaum@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/11/11 17:48:47 by rbaum             #+#    #+#              #
-#    Updated: 2015/06/12 22:24:47 by rbaum            ###   ########.fr        #
+#    Updated: 2015/10/20 15:13:26 by rbaum            ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
@@ -43,9 +43,13 @@ SRC_NAME = ft_atoi.c		ft_bzero.c		ft_isalnum.c	ft_isalpha.c	\
 
 OBJ_NAME = $(SRC_NAME:.c=.o)
 
+INC_NAME = libft.h
+
 SRC =		$(addprefix $(SRC_PATH),$(SRC_NAME))
 
 OBJ =		$(addprefix $(OBJ_PATH),$(OBJ_NAME))
+
+INC =		$(addprefix $(INC_PATH),$(INC_NAME))
 
 all: 		$(NAME)
 
@@ -54,7 +58,7 @@ $(NAME): 	$(OBJ)
 			@echo "compile done !"
 
 
-$(OBJ_PATH)%.o: $(SRC_PATH)%.c
+$(OBJ_PATH)%.o: $(SRC_PATH)%.c $(INC)
 			@mkdir -p $(OBJ_PATH)
 			@$(CC) $(CFLAG) -I$(INC_PATH) -o $@ -c $<
 

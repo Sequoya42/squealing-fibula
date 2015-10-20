@@ -6,83 +6,80 @@
 /*   By: rbaum <rbaum@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/10/17 14:50:38 by rbaum             #+#    #+#             */
-/*   Updated: 2015/10/19 19:11:11 by rbaum            ###   ########.fr       */
+/*   Updated: 2015/10/20 19:29:03 by rbaum            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "select.h"
 
-void				choose_style(t_member *tmp, int fd)
+static void				choose_style(t_member *tmp, int fd)
 {
-		tputs(tgetstr("me", NULL), fd, tputs_putchar);
-		if (tmp->current == 1)
-		{
-			ft_putstr_fd(KMAG, fd);
-			tputs(tgetstr("us", NULL), fd, tputs_putchar);
-		}
-		if (tmp->selected == 1)
-		{
-			ft_putstr_fd(KGRN, fd);
-			tputs(tgetstr("mr", NULL), fd, tputs_putchar);
-		}
-		if (tmp->current == 1 && tmp->selected == 1)
-			ft_putstr_fd(KYEL, fd);
-
+	tputs(tgetstr("me", NULL), fd, tputs_putchar);
+	if (tmp->is_dir == 1)
+		ft_putstr_fd(KLBLU, fd);
+	if (tmp->current == 1)
+	{
+		ft_putstr_fd(KBOLD, fd);
+		tputs(tgetstr("us", NULL), fd, tputs_putchar);
+	}
+	if (tmp->selected == 1)
+		tputs(tgetstr("mr", NULL), fd, tputs_putchar);
 }
 
-void				print_complete(int s, int f, int fd)
+static void				print_complete(int s, int f, int fd)
 {
 	while (s < f)
 	{
-		ft_putchar_fd('\t', fd);
-		s += 4;
+		ft_putchar_fd(' ', fd);
+		s += 1;
 	}
+	ft_putchar_fd('\t', fd);
 }
 
-void				print_format(t_member *tmp, int fd, t_select *s, int *m)
+static void				print_format(t_member *tmp, int fd, t_select *s)
 {
-	int				n;
+	int					n;
+	int					z;
 
 	n = 0;
-	if (*m == 0)
-	{
-		*m = s->co;
-		ft_putchar_fd('\n', fd);
-		s->ty -= 1;
-	}
 	ft_putstr_fd(tmp->name, fd);
-	n = tmp->len % 4;
-	if (n != 0)
-		ft_putchar_fd('\t', fd);
-	print_complete((tmp->len + n), s->len_max, fd);
-	*m -= 1;;
+	tputs(tgetstr("me", NULL), fd, tputs_putchar);
+	if ((tmp->index % s->co) == 0)
+		ft_putchar_fd('\n', fd);
+	else
+	{
+		n = tmp->len % 4;
+		z = n;
+		if (tmp->len + n < s->len_max)
+		{
+			while (n--)
+				ft_putchar_fd(' ', fd);
+		}
+		print_complete((tmp->len + z), s->len_max, fd);
+	}
+	ft_putstr_fd(KNRM, fd);
 }
 
-void			print_list(t_select *s)
+void					print_list(t_select *s)
 {
-	t_member	*tmp;
-	int			fd;
-	int			m;
+	t_member		*tmp;
+	int				fd;
 
 	tmp = s->first;
 	fd = s->fd;
 	s->total_size = 0;
-	s->tx = X;
-	s->ty = Y;
-	m = s->co;
-	print_front(s);
-	while (tmp != NULL)
+	if (!(tmp->len > X || X < HEAD_SIZE || Y < ((s->nb_elem / s->co) + 4)))
 	{
-		choose_style(tmp, fd);
-		if (tmp->len > X || X < HEAD_SIZE || Y < (s->nb_elem + 6))
+		print_front(s);
+		while (tmp != NULL)
 		{
-			window_too_small();
-			break;
+			choose_style(tmp, fd);
+			print_format(tmp, fd, s);
+			if (tmp == s->last)
+				break ;
+			tmp = tmp->next;
 		}
-		print_format(tmp, fd, s, &m);
-		if (tmp == s->last)
-			break ;
-		tmp = tmp->next;
 	}
+	else
+		window_too_small();
 }
-

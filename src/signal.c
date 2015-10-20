@@ -6,7 +6,7 @@
 /*   By: rbaum <rbaum@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/10/17 19:37:59 by rbaum             #+#    #+#             */
-/*   Updated: 2015/10/19 19:06:14 by rbaum            ###   ########.fr       */
+/*   Updated: 2015/10/20 19:24:45 by rbaum            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ void			sig_exit(int i)
 	exit(0);
 	(void)i;
 }
+
 void			ft_z(int i)
 {
 	char		arg[2];
@@ -38,7 +39,7 @@ void			ft_z(int i)
 void			ft_fg(int i)
 {
 	struct termios *term;
-	
+
 	term = SING->term;
 	modif_term(SING->term);
 	signal(SIGTSTP, ft_z);
@@ -51,9 +52,6 @@ void			window_too_small(void)
 	int			fd;
 
 	fd = FD;
-	tputs(tgetstr("me", NULL), fd, tputs_putchar);
-	tputs(tgoto(tgetstr("cm", NULL), 0, 0), fd, tputs_putchar);
-	tputs(tgetstr("cd", NULL), fd, tputs_putchar);
 	ft_putendl_fd("WINDOW TOO SMALL !", fd);
 }
 
@@ -67,4 +65,4 @@ void			ft_resize(int i)
 	get_window_size(s);
 	print_list(s);
 	(void)i;
-}	
+}

@@ -6,13 +6,11 @@
 /*   By: rbaum <rbaum@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/10/16 18:42:34 by rbaum             #+#    #+#             */
-/*   Updated: 2015/10/19 19:34:25 by rbaum            ###   ########.fr       */
+/*   Updated: 2015/10/20 19:18:51 by rbaum            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "select.h"
-
-
 
 static int			ft_del(t_select *s)
 {
@@ -27,7 +25,6 @@ static int			ft_del(t_select *s)
 		return (0);
 	else if (tmp == s->first)
 	{
-
 		s->first = s->first->next;
 		s->last->prev = s->first;
 	}
@@ -44,10 +41,8 @@ int					get_key(t_select *s)
 {
 	char			buf[3];
 
-	(void)s;
 	ft_bzero(buf, 3);
 	read(FD, buf, 3);
-	// print_key(buf);
 	ft_move(s, buf);
 	if (CD)
 		sig_exit(0);

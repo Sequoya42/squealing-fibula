@@ -6,7 +6,7 @@
 /*   By: rbaum <rbaum@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/10/19 18:44:08 by rbaum             #+#    #+#             */
-/*   Updated: 2015/10/19 19:35:13 by rbaum            ###   ########.fr       */
+/*   Updated: 2015/10/20 19:22:51 by rbaum            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,12 @@ static void			move_prev(t_select *s)
 	s->cur->current = 1;
 }
 
- void			move_next(t_select *s)
+void				move_next(t_select *s)
 {
 	s->cur->current = 0;
 	s->cur = s->cur->next;
 	s->cur->current = 1;
 }
-
 
 static void			move_up(t_select *s)
 {

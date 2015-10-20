@@ -6,32 +6,35 @@
 /*   By: rbaum <rbaum@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/10/13 13:05:52 by rbaum             #+#    #+#             */
-/*   Updated: 2015/10/19 19:28:20 by rbaum            ###   ########.fr       */
+/*   Updated: 2015/10/20 19:29:15 by rbaum            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "select.h"
 
-void			print_front(t_select *s)
+void				print_front(t_select *s)
 {
+	int				i;
+	int				siz;
+
+	i = 0;
+	siz = (X / 2) - 4;
 	tputs(tgetstr("me", NULL), s->fd, tputs_putchar);
 	tputs(tgoto(tgetstr("cm", NULL), 0, 0), s->fd, tputs_putchar);
 	tputs(tgetstr("cd", NULL), s->fd, tputs_putchar);
-	tputs(tgetstr("us", NULL), s->fd, tputs_putchar);
-	ft_putendl_fd("\tFt_select\n", s->fd);
+	while (i < siz)
+	{
+		ft_putstr_fd(" ", s->fd);
+		i += 1;
+	}
+	ft_putstr_fd(KBOLD, s->fd);
+	ft_putstr_fd(K42, s->fd);
+	ft_putstr_fd(KCYN, s->fd);
+	ft_putendl_fd("Ft_select\n", s->fd);
 	tputs(tgetstr("me", NULL), s->fd, tputs_putchar);
-	ft_putstr_fd("X : \t", s->fd);
-	ft_putnbr_fd(X, s->fd);
-	ft_putstr_fd("\tY : \t", s->fd);
-	ft_putnbr_fd(Y, s->fd);
-	ft_putstr_fd("\ncolumn: \t", s->fd);
-	ft_putnbr_fd(s->co, s->fd);
-	ft_putstr_fd("\nindex:\t", s->fd);
-	ft_putnbr_fd(s->cur->index , s->fd);
-	ft_putendl_fd("\n-------------\n", s->fd);
 }
 
-int				catch_events(t_select *s)
+static int			catch_events(t_select *s)
 {
 	while (1)
 	{

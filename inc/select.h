@@ -6,23 +6,24 @@
 /*   By: rbaum <rbaum@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/10/13 13:04:44 by rbaum             #+#    #+#             */
-/*   Updated: 2015/10/19 19:34:38 by rbaum            ###   ########.fr       */
+/*   Updated: 2015/10/20 19:30:02 by rbaum            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SELECT_H
 # define SELECT_H
 
-#include "libft.h"
-#include <termios.h>
-#include <curses.h>
-#include <term.h>
-#include <signal.h>
-#include <sys/ioctl.h>
+# include "libft.h"
+# include <termios.h>
+# include <curses.h>
+# include <term.h>
+# include <signal.h>
+# include <sys/ioctl.h>
+# include <sys/stat.h>
 
 # define SING		singleton()
 # define FD			(SING->fd)
-
+# define K42		"\e[42m"
 # define HEAD_SIZE	14
 
 # define X			(s->w.ws_col)
@@ -47,6 +48,7 @@ typedef struct		s_member
 	int				current;
 	unsigned int	len;
 	unsigned int	index;
+	unsigned int	is_dir;
 }					t_member;
 
 typedef struct		s_select
@@ -77,12 +79,12 @@ void				window_too_small(void);
 void				print_front(t_select *s);
 void				ft_move(t_select *s, char buf[3]);
 void				move_next(t_select *s);
+
 int					tputs_putchar(int c);
 int					modif_term(struct termios *term);
 int					reset(struct termios *term);
 int					get_key(t_select *s);
 int					print_selected(t_select *s);
-int					catch_events(t_select *s);
 
 t_select			*singleton(void);
 
